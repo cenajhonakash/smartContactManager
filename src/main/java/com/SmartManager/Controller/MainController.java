@@ -4,6 +4,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,8 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.SmartManager.DaoTest.Messages;
 import com.SmartManager.DaoTest.UserRepo;
 import com.SmartManager.Entity.User;
@@ -20,6 +20,8 @@ import com.SmartManager.Entity.User;
 @Controller
 public class MainController {
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	@Autowired
 	private UserRepo urepo;
 
@@ -85,10 +87,10 @@ public class MainController {
 			}
 			user.setImageURL("Default img");
 			user.setEnabled(true);
-			user.setRole("User");
-
-			System.out.println("Agreement = "+agreement);
-			System.out.println("USER = "+ user);
+			user.setRole("ROLE_USER");
+			user.setPass(encoder.encode(user.getPass()));		
+			//System.out.println("Agreement = "+agreement);
+			//System.out.println("USER = "+ user);
 
 			this.urepo.save(user);
 			//model.addAttribute(user);

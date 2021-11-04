@@ -12,6 +12,7 @@ public interface UserRepo{
 
 public interface UserRepo extends JpaRepository<User, Integer>{
   
+
 	@Query("select u from User u where u.email = :email")
-	public User getUserbyUsername(@Param("email") String userName);
+	public User getUserbyUsername(@Param("email") String email);
   }
