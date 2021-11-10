@@ -20,10 +20,10 @@ public class Contact {
 	private int number; 
 	private String imageUrl; 
 	private String name;
-
-	@Column(length = 500) private String description;
-
-	@Column(unique = true) private String work; private String nickname;
+	@Column(length = 500) 
+	private String description;
+	private String work; 
+	private String nickname;
 
 	@ManyToOne() private User user;
 

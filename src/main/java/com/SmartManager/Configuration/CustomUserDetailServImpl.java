@@ -13,8 +13,10 @@ public class CustomUserDetailServImpl implements UserDetailsService{
 	@Autowired
 	private UserRepo uRepo;
 
+	//loading user via his email and password
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	//	System.out.println("10");
 		User u = uRepo.getUserbyUsername(username);
 		if(u==null) {
 			System.out.println("User not found in Database!!");

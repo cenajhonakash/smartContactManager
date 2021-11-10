@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+	th:fragment="Layout(content)">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<!-- Bootstrap Icon -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+	integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Added by me for CSS -->
+<link rel="stylesheet" th:href="@{/CSS/style.css}">
+<title th:text="${title}">Base HTML page to be inherited by
+	other views</title>
+</head>
+<body>
+
+	<!-- START OF NAV BAR -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+		<a class="navbar-brand" href="#">Smart Contact Manager</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto text-uppercase">
+
+				<li class="nav-item active"><a th:href="@{/home}"
+					class="nav-link" href="#">Home <span class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link"> <span
+						th:text=${user.name}></span></a></li>
+				<li class="nav-item"><a th:href="@{/logout/}" class="nav-link"
+					href="#" tabindex="-1" aria-disabled="true">Logout</a></li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search"
+					placeholder="Search" aria-label="Search">
+				<button class="button">Search</button>
+			</form>
+		</div>
+	</nav>
+	<!-- END OF NAV BAR -->
+	<!-- Side bar of page -->
+	<div class="sidebar">
+		<span onclick="toggleSidebar()" class="crossbar">&times;</span> <a
+			href="#" class="item"> <i class="fas fa-home"></i> Home
+		</a> <a href="#" class="item"><i class="fas fa-id-card-alt"></i> View
+			Contact</a> <a href="#" th:href="@{/user/addContact}" class="item"><i
+			class="fas fa-pencil-alt"></i> Add Contact</a> <a href="#" class="item"><i
+			class="fas fa-user-circle"></i> Profile</a> <a href="#" class="item"><i
+			class="fas fa-cogs"></i> Settings</a> <a href="#" th:href="@{/logout}"
+			class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+	</div>
+	<!-- End of SIdebar -->
+	<!--   Content area start -->
+	<div class="content">
+		<i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
+		<div th:replace="${content}"></div>
+	</div>
+	<!--   Content area End-->
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<!-- Added by me for JS -->
+	<script th:src="@{/JS/script.js}"></script>
+
+</body>
+</html>
