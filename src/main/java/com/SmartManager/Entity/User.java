@@ -27,7 +27,8 @@ public class User {
 	@NotBlank(message = "name should not be empty")
 	@Size(max=12, min = 3, message = "Please enter name between 3-12 characters")
 	private String name; 
-	private String pass; private String role;
+	private String pass; 
+	private String role;
 
 	@Column(length = 500) private String about;
 
@@ -35,9 +36,11 @@ public class User {
 	@Column(unique = true) 
 	private String email; 
 	
-	private String imageURL; private boolean enabled;
+	private String imageURL; 
+	private boolean enabled;
 
-	//mappedBy = "user" to avoid unnecessary table [user_contact_list] creation for Foreign Key Mapping of User & Contact Table
+	//mappedBy = "user" to avoid unnecessary table [user_contact_list] creation for Foreign Key Mapping of User & Contact Table + It'll create one 'userId' column and we have to explicitly map the user with contact
+	//CascadeType.ALL = Used to delete everything related tp user like his contactlist
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user") private
 	List<Contact> contactList = new ArrayList<>();
 

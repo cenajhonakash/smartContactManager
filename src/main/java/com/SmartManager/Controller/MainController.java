@@ -49,7 +49,7 @@ public class MainController {
 		 * 
 		 * urepo.save(u1); return "Working"
 		 */
-		model.addAttribute("title", "About - Smart COmtact");
+		model.addAttribute("title", "About - Smart Contact");
 		return "about";
 	}
 

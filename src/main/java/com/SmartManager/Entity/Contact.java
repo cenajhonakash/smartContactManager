@@ -17,7 +17,7 @@ public class Contact {
 
 	@GeneratedValue(strategy = GenerationType.AUTO) 
 	private int contactId;
-	private int number; 
+	private String number; 
 	private String imageUrl; 
 	private String name;
 	@Column(length = 500) 
@@ -25,11 +25,18 @@ public class Contact {
 	private String work; 
 	private String nickname;
 
-	@ManyToOne() private User user;
+	@ManyToOne() 
+	private User user;
 
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public int getContactId() { return contactId; } public void setContactId(int
-			contactId) { this.contactId = contactId; } public int getNumber() { return
-					number; } public void setNumber(int number) { this.number = number; } public
+			contactId) { this.contactId = contactId; } public String getNumber() { return
+					number; } public void setNumber(String number) { this.number = number; } public
 	String getImageUrl() { return imageUrl; } public void setImageUrl(String
 			imageUrl) { this.imageUrl = imageUrl; } public String getName() { return
 					name; } public void setName(String name) { this.name = name; } public String
@@ -38,6 +45,13 @@ public class Contact {
 				return work; } public void setWork(String work) { this.work = work; } public
 	String getNickname() { return nickname; } public void setNickname(String
 			nickname) { this.nickname = nickname; } public Contact() { super();}
+
+			/*
+			 * @Override public String toString() { return "Contact [contactId=" + contactId
+			 * + ", number=" + number + ", imageUrl=" + imageUrl + ", name=" + name +
+			 * ", description=" + description + ", work=" + work + ", nickname=" + nickname
+			 * + ", user=" + user + "]"; }
+			 */
 
 
 }
