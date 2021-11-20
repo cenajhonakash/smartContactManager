@@ -23,6 +23,15 @@ public class Contact {
 	@Column(length = 500) 
 	private String description;
 	private String work; 
+	@Column(unique = true) 
+	private String email; 
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	private String nickname;
 
 	@ManyToOne() 

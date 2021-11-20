@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+	th:replace="/User/userBase :: Layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>This is Contact List</title>
+</head>
+
+<body>
+	<div th:if="${session.message}"
+		th:classappend="${session.message.messageType}" class="alert"
+		role="alert">
+		<p class="text-center" th:text="${session.message.content}"></p>
+		<th:block th:text="${#session.removeAttribute('message')}">
+	</div>
+	<section>
+		<div class="card mr-2 ml-2">
+			<div class="card-body">
+				<h1 class="text-center">Contacts</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#Id</th>
+							<th scope="col">Name</th>
+							<th scope="col">Number</th>
+							<th scope="col">Work</th>
+							<th scope="col">Email</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="c : ${cList}">
+							<th scope="row" th:text="${c.contactId}"></th>
+							<td><img class="profilePhoto"
+								th:src="@{'/IMG/UploadedIMG/'+${c.imageUrl}}" alt="profilePhoto"
+								src="" /> <span th:text="${c.name}+' ('+${c.nickname}+')'"></span>
+							</td>
+							<td th:text="${c.number}"></td>
+							<td th:text="${c.work}"></td>
+							<td><a href="#"
+								th:href="@{'/user/contactList/showProfile/'+${c.contactId}}"><span
+									th:text="${c.email}"></span></a></td>
+							<td><a class="btn btn-danger"
+								th:href="@{'/user/deleteContact/'+${c.contactId}}">Delete</a>
+								<button class="btn btn-primary">Update</button></td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- Pagination display -->
+				<nav aria-label="...">
+					<ul class="pagination">
+						<li th:if="${currentPage != 0}" class="page-item"><a
+							th:href="@{${currentPage-1}}" class="page-link" href="#"
+							tabindex="-1">Previous</a></li>
+						<li th:classappend="${currentPage==i-1?'active':''}"
+							th:each="i : ${#numbers.sequence(1,totalPage)}" class="page-item"><a
+							th:href="@{${i-1}}" class="page-link"><span th:text="${i}"></span></a></li>
+						<li th:if="${currentPage+1 != totalPage}" class="page-item"><a
+							th:href="@{${currentPage+1}}" class="page-link" href="#">Next</a></li>
+					</ul>
+				</nav>
+				<!-- END Pagination -->
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

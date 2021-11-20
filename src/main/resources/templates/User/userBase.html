@@ -43,7 +43,7 @@
 					class="nav-link" href="#">Home <span class="sr-only">(current)</span></a></li>
 				<li class="nav-item"><a class="nav-link"> <span
 						th:text=${user.name}></span></a></li>
-				<li class="nav-item"><a th:href="@{/logout/}" class="nav-link"
+				<li class="nav-item"><a th:href="@{/logout}" class="nav-link"
 					href="#" tabindex="-1" aria-disabled="true">Logout</a></li>
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
@@ -58,8 +58,9 @@
 	<div class="sidebar">
 		<span onclick="toggleSidebar()" class="crossbar">&times;</span> <a
 			href="#" class="item"> <i class="fas fa-home"></i> Home
-		</a> <a href="#" class="item"><i class="fas fa-id-card-alt"></i> View
-			Contact</a> <a href="#" th:href="@{/user/addContact}" class="item"><i
+		</a> <a th:href="@{/user/contactList/0}" class="item"><i
+			class="fas fa-id-card-alt"></i> View Contact</a> <a href="#"
+			th:href="@{/user/addContact}" class="item"><i
 			class="fas fa-pencil-alt"></i> Add Contact</a> <a href="#" class="item"><i
 			class="fas fa-user-circle"></i> Profile</a> <a href="#" class="item"><i
 			class="fas fa-cogs"></i> Settings</a> <a href="#" th:href="@{/logout}"
@@ -70,9 +71,9 @@
 	<div th:if="${session.message}"
 		th:classappend="${session.message.messageType}" class="alert"
 		role="alert">
-		<div class="text-center" th:text="${session.message.content}">
-			<th:block th:text="${#session.removeAttribute('message')}">
-		</div>
+		<p class="text-center" th:text="${session.message.content}"></p>
+		<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		<!-- th:block used to remove alert message repetition -->
 	</div>
 	<!--   Content area start -->
 	<div class="content">
@@ -97,6 +98,7 @@
 		crossorigin="anonymous"></script>
 	<!-- Added by me for JS -->
 	<script th:src="@{/JS/script.js}"></script>
-
+	<!-- Sweet Alert for Contact Deletion -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

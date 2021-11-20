@@ -36,7 +36,7 @@ public class MainController {
 		 * 
 		 * urepo.save(u1); return "Working"
 		 */
-		model.addAttribute("title", "Home - Smart COmtact");
+		model.addAttribute("title", "Home - Smart Contact");
 		return "Home";
 	}
 
@@ -62,7 +62,7 @@ public class MainController {
 		 * 
 		 * urepo.save(u1); return "Working"
 		 */
-		model.addAttribute("title", "Register - Smart COmtact");
+		model.addAttribute("title", "Register - Smart Contact");
 		model.addAttribute("user", new User());	//to make the user entered values visible on browser during runtime
 		return "signup";
 	}
@@ -99,7 +99,7 @@ public class MainController {
 			session.setAttribute("message", new Messages("Successfully registered ","alert-success"));
 			return "signup";
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 			model.addAttribute("user", user);
 			session.setAttribute("message", new Messages("something went wrong "+e.getMessage(),"alert-danger"));

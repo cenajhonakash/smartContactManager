@@ -15,23 +15,18 @@
 					<div class="row"></div>
 					<div class="col-md-10 offset-md-1">
 						<!-- enctype="multipart/form-data is used for Image -->
-						<form action="#" th:object="${c}" enctype="multipart/form-data" th:action="@{/user/processContact}" method="POST" class="mt-2">
+						<form th:object="${con}" enctype="multipart/form-data"
+							th:action="@{/user/processContact}" method="POST" class="mt-2">
 							<!-- First Name  -->
-
 							<div class="input-group">
-
 								<div class="input-group-prepend">
-
 									<div class="input-group-text ">
-
 										<i class="fa fa-plus"></i>
-
 									</div>
-
 								</div>
-
 								<input required type="text" id="firstName" name="name"
-									placeholder="Enter Name here" class="form-control" />
+									placeholder="Enter Name here" class="form-control"
+									th:value="${con.name}" />
 
 							</div>
 
@@ -51,7 +46,8 @@
 								</div>
 
 								<input required type="text" id="nickname" name="nickname"
-									placeholder="Enter Nick Name here" class="form-control" />
+									placeholder="Enter Nick Name here" class="form-control"
+									th:value="${con.nickname}" />
 
 							</div>
 							<!-- Phone Field -->
@@ -68,7 +64,8 @@
 								</div>
 
 								<input required min="10" type="number" id="number" name="number"
-									placeholder="Enter Phone Number  here" class="form-control" />
+									placeholder="Enter Phone Number  here" class="form-control"
+									th:value="${con.number}" />
 
 							</div>
 
@@ -84,7 +81,8 @@
 								</div>
 
 								<input required type="email" id="email" name="email"
-									placeholder="Enter email here" class="form-control" />
+									placeholder="Enter email here" class="form-control"
+									th:value="${con.email}" />
 
 							</div>
 
@@ -104,7 +102,8 @@
 								</div>
 
 								<input required type="text" id="work" name="work"
-									placeholder="Enter work here" class="form-control" />
+									placeholder="Enter work here" class="form-control"
+									th:value="${con.work}" />
 
 							</div>
 
@@ -134,6 +133,14 @@
 				</div>
 			</div>
 		</div>
+		<script
+			src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
+			referrerpolicy="origin"></script>
+		<script>
+			tinymce.init({
+				selector : '#mytextarea'
+			});
+		</script>
 	</section>
 </body>
 
