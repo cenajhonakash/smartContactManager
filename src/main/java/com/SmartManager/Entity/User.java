@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "User")
 public class User {
@@ -38,14 +40,14 @@ public class User {
 	
 	private String imageURL; 
 	private boolean enabled;
-
+	
 	//mappedBy = "user" to avoid unnecessary table [user_contact_list] creation for Foreign Key Mapping of User & Contact Table + It'll create one 'userId' column and we have to explicitly map the user with contact
 	//CascadeType.ALL = Used to delete everything related tp user like his contactlist
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user") private
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true) private
 	List<Contact> contactList = new ArrayList<>();
-
 	public User() { super();} // TODO Auto-generated constructor stub }
 
+	
 	public List<Contact> getContactList() { return contactList; }
 
 	public void setContactList(List<Contact> contactList) { this.contactList =

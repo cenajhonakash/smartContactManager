@@ -16,37 +16,54 @@
 	<section>
 		<div class="card mr-2 ml-2">
 			<div class="card-body">
-				<h1 class="text-center">Contacts</h1>
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">#Id</th>
-							<th scope="col">Name</th>
-							<th scope="col">Number</th>
-							<th scope="col">Work</th>
-							<th scope="col">Email</th>
-							<th scope="col">Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="c : ${cList}">
-							<th scope="row" th:text="${c.contactId}"></th>
-							<td><img class="profilePhoto"
-								th:src="@{'/IMG/UploadedIMG/'+${c.imageUrl}}" alt="profilePhoto"
-								src="" /> <span th:text="${c.name}+' ('+${c.nickname}+')'"></span>
-							</td>
-							<td th:text="${c.number}"></td>
-							<td th:text="${c.work}"></td>
-							<td><a href="#"
-								th:href="@{'/user/contactList/showProfile/'+${c.contactId}}"><span
-									th:text="${c.email}"></span></a></td>
-							<td><a class="btn btn-danger"
-								th:href="@{'/user/deleteContact/'+${c.contactId}}">Delete</a>
-								<button class="btn btn-primary">Update</button></td>
-						</tr>
-					</tbody>
-				</table>
+				<h1 class="text-center">Your Contacts</h1>
+				<!-- Search Container -->
+				<div class="search-container my-2">
+					<input onkeyup="searchFunc()" id="search-contact"
+						class="form-control" placeholder="search contacts" />
+					<!-- search result -->
+					<div class="search-result"></div>
+				</div>
+				<!-- Contact Table -->
+				<div class="table-responsive">
+					<table class="table table-striped table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">#Id</th>
+								<th scope="col">Name</th>
+								<th scope="col">Number</th>
+								<th scope="col">Work</th>
+								<th scope="col">Email</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="c : ${cList}">
+								<th scope="row" th:text="${c.contactId}"></th>
+								<td><img class="profilePhoto"
+									th:src="@{'/IMG/UploadedIMG/'+${c.imageUrl}}"
+									alt="profilePhoto" src="" /> <span
+									th:text="${c.name}+' ('+${c.nickname}+')'"></span></td>
+								<td th:text="${c.number}"></td>
+								<td th:text="${c.work}"></td>
+								<td><a href="#"
+									th:href="@{'/user/contactList/showProfile/'+${c.contactId}}"><span
+										th:text="${c.email}"></span></a></td>
+								<td><a href="#"
+									th:onclick="|deleteContact(${c.contactId})|"
+									class="btn btn-danger">Delete</a> <!-- th:href="@{'/user/deleteContact/'+${c.contactId}}" is removed as JS function is called to show sweet alert -->
+									<!-- the update button is inside form because the <a></a> tag by default takes GET method which is not safe -->
+									<form method="POST"
+										th:action="@{'/user/updateContact/'+${c.contactId}}"
+										class="mt-1">
+										<button type="submit" class="btn btn-primary">Update</button>
+									</form></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<!-- Pagination display -->
+
 				<nav aria-label="...">
 					<ul class="pagination">
 						<li th:if="${currentPage != 0}" class="page-item"><a

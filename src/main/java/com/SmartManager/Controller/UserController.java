@@ -77,7 +77,7 @@ public class UserController {
 	public String processContact(@ModelAttribute Contact con,  @RequestPart("image") MultipartFile file ,Principal p, HttpSession s, Model m)
 	{
 		//System.out.println(c);
-		m.addAttribute("title", "AddContact");
+		m.addAttribute("title", "Add | Contact");
 
 		try {
 			//System.out.println("Contact = "+c);
@@ -94,8 +94,8 @@ public class UserController {
 				con.setImageUrl(file.getOriginalFilename());
 
 				//Image upload into Target Folder
-				File save = new ClassPathResource("/static/IMG/UploadedIMG").getFile(); Path
-				path = Paths.get(save.getAbsolutePath()+File.separator+file.getOriginalFilename());
+				File save = new ClassPathResource("/static/IMG/UploadedIMG").getFile(); 
+				Path path = Paths.get(save.getAbsolutePath()+File.separator+file.getOriginalFilename());
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
 				//fileUpload.uploadFile(file);
@@ -171,5 +171,73 @@ public class UserController {
 		}
 
 		return "redirect:/user/contactList/0";
+	}
+	
+	//redirecting to UpdateForm page
+	@PostMapping("/updateContact/{contactId}")
+	public String updateContact(@PathVariable("contactId") Integer contactId,Model m, Principal p) {
+		m.addAttribute("title", "Update | Contact");
+	//	System.out.println("contact Id = "+contactId);
+		User u = this.uR.getUserbyUsername(p.getName());//this.uR.getUserbyUsername(p.getName());
+		Contact c = this.cR.getById(contactId);
+	//	c.getUser().getId();
+		if(u.getId() == c.getUser().getId()) {
+			//System.out.println("Verified");
+			m.addAttribute("con", c);
+			return "User/updateContact";
+		}else {
+			System.out.println("Unauthorized access to other user contact via URL !!!!");
+			return "redirect:/user/contactList/0";
+		}
+		//System.out.println("contact details = "+c.getContactId());
+		//m.addAttribute("con", c);
+		//return "User/updateContact";
+	}
+	
+	
+	//processing update contact
+	@RequestMapping(value="/processUpdate", method= RequestMethod.POST)
+	public String updateContactHandler(@ModelAttribute Contact con, Model m,  @RequestPart("image") MultipartFile file,
+			Principal p, HttpSession session) {
+		m.addAttribute("title", "Update | Contact");
+		
+		//System.out.println("contact Id = "+con.getContactId()+con.getEmail()+con.getName());
+		try {
+			//old contact
+			Contact oldcontactDetail = this.cR.findById(con.getContactId()).get();
+			
+			if(!file.isEmpty()){
+				File deleteFile = new ClassPathResource("/static/IMG/UploadedIMG").getFile();
+				File file1 = new File(deleteFile, oldcontactDetail.getImageUrl());
+				file1.delete();
+				
+				File saveFile = new ClassPathResource("static/img").getFile();
+				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				con.setImageUrl(file.getOriginalFilename());			
+			}else {
+				con.setImageUrl(oldcontactDetail.getImageUrl());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		User u = this.uR.getUserbyUsername(p.getName());
+		/*
+		 * System.out.println(u.getId() +" = " + con.getUser().getId()); if(u.getId() ==
+		 * con.getUser().getId()) { System.out.println("User and Contact id verified");
+		 * con.setUser(u); this.cR.save(con); session.setAttribute("message", new
+		 * Messages("Your contact is updated...", "success"));
+		 * session.setAttribute("message", new Messages("Contact deleted", "success"));
+		 * }else { session.setAttribute("message", new
+		 * Messages("Contact not deleted!!..Unauthorized Deletion performed",
+		 * "danger")); System.out.println("Unauthorized!!!! URL Hit & Trial used"); }
+		 */
+		con.setUser(u);
+		this.cR.save(con);	
+
+		
+	//	m.addAttribute("con", con.getContactId());
+		return "redirect:/user/contactList/showProfile/" + con.getContactId();
 	}
 }

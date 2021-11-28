@@ -90,3 +90,14 @@ body {
 	display: block;
 	padding: 10px 25px;
 }
+.search-container{
+	position: relative;
+}
+.search-result{
+	position: absolute;
+	display:none;
+	background: white;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid gray;
+}

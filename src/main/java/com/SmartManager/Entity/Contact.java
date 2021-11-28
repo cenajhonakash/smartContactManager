@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Contact")
 public class Contact {
@@ -25,16 +27,11 @@ public class Contact {
 	private String work; 
 	@Column(unique = true) 
 	private String email; 
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	private String nickname;
 
 	@ManyToOne() 
+	@JsonIgnore
 	private User user;
 
 	public User getUser() {
@@ -43,6 +40,13 @@ public class Contact {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public int getContactId() { return contactId; } public void setContactId(int
 			contactId) { this.contactId = contactId; } public String getNumber() { return
 					number; } public void setNumber(String number) { this.number = number; } public
